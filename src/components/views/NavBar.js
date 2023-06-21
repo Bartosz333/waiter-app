@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const NavBar = () => {
   return (
-    <Navbar bg='primary' variant='dark' expand='lg' className='rounded'>
+    <Navbar bg='primary' variant='dark' expand='lg' className='rounded my-4'>
       <Container>
         <Navbar.Brand href='/'>Waiter.app</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
