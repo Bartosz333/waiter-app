@@ -2,9 +2,16 @@ import { Button, ListGroup, Stack } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getAllTables } from '../../../redux/tablesRedux';
 import { Link } from 'react-router-dom';
+import { Loading } from '../../views/Loading';
 
 export const Home = () => {
   const tables = useSelector(getAllTables);
+  const isLoading = !tables;
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1 className='my-4'>All TABLES</h1>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { getTableById, updateTable } from '../../../redux/tablesRedux';
+import { getTableById, sendData } from '../../../redux/tablesRedux';
 
 export const Table = () => {
   const { id } = useParams();
@@ -43,7 +43,7 @@ export const Table = () => {
       peopleAmount: peopleAmount.toString(),
       maxPeopleAmount: maxPeopleAmount.toString(),
     };
-    dispatch(updateTable(obj));
+    dispatch(sendData(obj));
     console.log(obj);
     navigate('/');
   };
@@ -98,9 +98,6 @@ export const Table = () => {
             <Form.Label column sm={1}>
               <strong>Bill:</strong>
             </Form.Label>
-            <Form.Text>
-              <p className='m-1'>$ </p>
-            </Form.Text>
             <Col sm={1}>
               <Form.Control
                 type='number'
@@ -108,6 +105,9 @@ export const Table = () => {
                 onChange={(e) => setBill(e.target.value)}
               />
             </Col>
+            <Form.Text>
+              <p className='m-2'>$ </p>
+            </Form.Text>
           </Stack>
         </Form.Group>
         <Button variant='primary' type='submit'>
