@@ -33,7 +33,7 @@ export const AddTable = () => {
           </Form.Label>
           <Col sm={2} lg={1}>
             <Form.Control
-              type='text'
+              type='number'
               value={tableId}
               onChange={(e) => {
                 setTableId(e.target.value);
