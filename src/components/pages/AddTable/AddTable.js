@@ -15,21 +15,13 @@ export const AddTable = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!tableId) {
-      console.log('Table ID is required');
-      return;
-    }
-
-    const isTableExists = tableIds.includes(tableId);
-
-    if (isTableExists) {
-      console.log('Table ID is already used');
-      return;
-    }
-
     dispatch(addTableRequest(tableId));
     navigate('/');
   };
+
+  const isTableIdRequired = !tableId;
+  const isTableIdUsed = tableIds.includes(tableId);
+  const canAddTable = !isTableIdRequired && !isTableIdUsed;
 
   return (
     <div>
@@ -49,7 +41,10 @@ export const AddTable = () => {
             />
           </Col>
         </Form.Group>
-        <Button variant='primary' type='submit' disabled={!tableId}>
+        {isTableIdRequired && <p>Table ID is required</p>}
+        {isTableIdUsed && <p>Table ID is already used</p>}
+        {canAddTable && <p>You can add a table!</p>}
+        <Button variant='primary' type='submit' disabled={!canAddTable}>
           Add table
         </Button>
       </Form>

@@ -11,6 +11,7 @@ const createActionName = (actionName) => `app/tables/${actionName}`;
 export const SHOW_TABLES = createActionName('SHOW_TABLES');
 export const UPDATE_TABLE = createActionName('UPDATE_TABLE');
 export const ADD_TABLE = createActionName('ADD_TABLE');
+export const REMOVE_TABLE = createActionName('REMOVE_TABLE');
 export const REQUEST_START = createActionName('REQUEST_START');
 export const REQUEST_SUCCESS = createActionName('REQUEST_SUCCESS');
 export const REQUEST_FAILURE = createActionName('REQUEST_FAILURE');
@@ -19,6 +20,7 @@ export const REQUEST_FAILURE = createActionName('REQUEST_FAILURE');
 export const showTables = (payload) => ({ type: SHOW_TABLES, payload });
 export const updateTable = (payload) => ({ type: UPDATE_TABLE, payload });
 export const addTable = (payload) => ({ type: ADD_TABLE, payload });
+export const removeTable = (payload) => ({ type: REMOVE_TABLE, payload });
 
 export const requestStart = () => ({
   type: REQUEST_START,
@@ -53,6 +55,14 @@ export const addTableRequest = (id) => {
     fetch(`${API_URL}/tables`, options)
       .then((res) => res.json())
       .then((data) => dispatch(addTable(data)));
+  };
+};
+
+export const removeTableRequest = (id) => {
+  return (dispatch) => {
+    fetch(`${API_URL}/tables/${id}`, { method: 'DELETE' })
+      .then((res) => res.json())
+      .then((data) => console.log(data + 'removed'));
   };
 };
 
@@ -95,6 +105,8 @@ const tablesReducer = (statePart = [], action) => {
           ...action.payload,
         },
       ];
+    case REMOVE_TABLE:
+      return statePart.filter((table) => table.id !== action.payload);
     default:
       return statePart;
   }
