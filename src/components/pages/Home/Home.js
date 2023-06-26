@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, ListGroup, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTables, removeTableRequest } from '../../../redux/tablesRedux';
@@ -9,15 +9,25 @@ export const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const tables = useSelector(getAllTables);
+  const [loading, setLoading] = useState(true); // We add the "loading" state
+
+  useEffect(() => {
+    // Sample API request or other operation that takes time
+    setTimeout(() => {
+      setLoading(false); // Set the "loading" state to false after 2 seconds
+    }, 2000);
+  }, []);
 
   const handleClick = (id) => {
     dispatch(removeTableRequest(id));
     navigate('/');
   };
 
-  if (!tables) {
+  if (loading) {
+    // Display the spinner if it's loading
     return <Loading />;
   }
+
   return (
     <div>
       <h1 className='my-4'>All tables</h1>
