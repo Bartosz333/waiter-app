@@ -15,7 +15,7 @@ export const Home = () => {
     // Sample API request or other operation that takes time
     setTimeout(() => {
       setLoading(false); // Set the "loading" state to false after 2 seconds
-    }, 1000);
+    }, 2000);
   }, []);
 
   const handleClick = (id) => {
