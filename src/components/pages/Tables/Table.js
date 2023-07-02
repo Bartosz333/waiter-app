@@ -23,15 +23,25 @@ export const Table = () => {
       setPeopleAmount('0');
     }
     if (status !== 'Busy') {
-      setBill('0');
+      setBill(0);
     }
   }, [status]);
 
-  useEffect(() => {
-    if (maxPeopleAmount < peopleAmount) {
-      setPeopleAmount(maxPeopleAmount);
+  const handlePeopleAmountChange = (e) => {
+    const newValue = Number(e.target.value);
+    setPeopleAmount(newValue);
+    if (newValue === maxPeopleAmount) {
+      setMaxPeopleAmount(newValue);
     }
-  }, [peopleAmount, maxPeopleAmount]);
+  };
+
+  const handleMaxPeopleAmountChange = (e) => {
+    const newValue = Number(e.target.value);
+    setMaxPeopleAmount(newValue);
+    if (peopleAmount !== newValue) {
+      setPeopleAmount(newValue);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,7 +89,7 @@ export const Table = () => {
               min='0'
               max={maxPeopleAmount}
               value={peopleAmount || ''}
-              onChange={(e) => setPeopleAmount(Number(e.target.value))}
+              onChange={handlePeopleAmountChange}
             />
           </Col>
           /
@@ -89,7 +99,7 @@ export const Table = () => {
               min='0'
               max='10'
               value={maxPeopleAmount || ''}
-              onChange={(e) => setMaxPeopleAmount(Number(e.target.value))}
+              onChange={handleMaxPeopleAmountChange}
             />
           </Col>
         </Form.Group>

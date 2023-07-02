@@ -41,7 +41,7 @@ export const AddTable = () => {
             />
           </Col>
         </Form.Group>
-        {isTableIdRequired && <p>Table ID is required</p>}
+        {isTableIdRequired && <p>Table number is required</p>}
         {isTableIdUsed && <p>Table ID is already used</p>}
         {canAddTable && <p>You can add a table!</p>}
         <Button variant='primary' type='submit' disabled={!canAddTable}>
