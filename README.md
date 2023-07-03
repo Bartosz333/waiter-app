@@ -1,4 +1,4 @@
-Waiter.App v1.1.0
+Waiter.App v1.2.0
 
 https://waiter-app.bartosz333.repl.co/
 
