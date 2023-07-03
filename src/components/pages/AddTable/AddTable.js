@@ -28,10 +28,10 @@ export const AddTable = () => {
       <h1 className='my-4'>Add new table</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className='my-3'>
-          <Form.Label column sm={2}>
+          <Form.Label column sm={3} lg={2}>
             <strong>Table number:</strong>
           </Form.Label>
-          <Col sm={2} lg={1}>
+          <Col xs={4} sm={3} md={2} lg={2}>
             <Form.Control
               type='number'
               value={tableId}

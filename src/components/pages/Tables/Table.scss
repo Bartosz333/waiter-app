@@ -1,0 +1,11 @@
+.dollar {
+    font-size: 1.3em;
+    color: black;
+    padding-top: 5px;
+  }
+
+  @media (max-width: 576px) {
+    .dollar {
+      font-size: 18px;
+    }
+  }

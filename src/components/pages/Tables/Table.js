@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getTableById, sendData } from '../../../redux/tablesRedux';
+import './Table.scss';
+import { BillInput } from '../../features/BillInput';
+import { PeopleInput } from '../../features/PeopleInput';
+import { StatusSelect } from '../../features/StatusSelect';
 
 export const Table = () => {
   const { id } = useParams();
@@ -20,10 +24,10 @@ export const Table = () => {
 
   useEffect(() => {
     if (status === 'Cleaning' || status === 'Free') {
-      setPeopleAmount('0');
+      setPeopleAmount(0);
     }
     if (status !== 'Busy') {
-      setBill(0);
+      setBill('0');
     }
   }, [status]);
 
@@ -64,61 +68,33 @@ export const Table = () => {
       <h1 className='my-4'>Table {table.id}</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className='my-3'>
-          <Form.Label column sm={1}>
+          <Form.Label column sm={3} md={2}>
             <strong>Status:</strong>
           </Form.Label>
-          <Col sm={4}>
-            <Form.Select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option>Busy</option>
-              <option>Reserved</option>
-              <option>Free</option>
-              <option>Cleaning</option>
-            </Form.Select>
+          <Col sm={9} md={4} lg={3}>
+            <StatusSelect status={status} setStatus={setStatus} />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className='my-3'>
-          <Form.Label column sm={1}>
+          <Form.Label column sm={3} md={2}>
             <strong>People:</strong>
           </Form.Label>
-          <Col sm={1}>
-            <Form.Control
-              type='number'
-              min='0'
-              max={maxPeopleAmount}
-              value={peopleAmount || ''}
-              onChange={handlePeopleAmountChange}
-            />
-          </Col>
-          /
-          <Col sm={1}>
-            <Form.Control
-              type='number'
-              min='0'
-              max='10'
-              value={maxPeopleAmount || ''}
-              onChange={handleMaxPeopleAmountChange}
+          <Col sm={9} md={4} lg={3}>
+            <PeopleInput
+              peopleAmount={peopleAmount}
+              maxPeopleAmount={maxPeopleAmount}
+              handlePeopleAmountChange={handlePeopleAmountChange}
+              handleMaxPeopleAmountChange={handleMaxPeopleAmountChange}
             />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className={status !== 'Busy' ? 'd-none' : 'my-3'}>
-          <Stack direction='horizontal'>
-            <Form.Label column sm={1}>
-              <strong>Bill:</strong>
-            </Form.Label>
-            <Col sm={1}>
-              <Form.Control
-                type='number'
-                value={bill}
-                onChange={(e) => setBill(e.target.value)}
-              />
-            </Col>
-            <Form.Text>
-              <p className='m-2'>$ </p>
-            </Form.Text>
-          </Stack>
+          <Form.Label column sm={3} md={2}>
+            <strong>Bill:</strong>
+          </Form.Label>
+          <Col sm={9} md={6} lg={4}>
+            <BillInput bill={bill} setBill={setBill} />
+          </Col>
         </Form.Group>
         <Button variant='primary' type='submit'>
           Update
